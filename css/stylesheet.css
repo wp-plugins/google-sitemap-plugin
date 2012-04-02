@@ -1,41 +1,3 @@
-#gglstmp_auth p{
-	padding-left:10px;
-}
-
-#gglstmp_auth p.submit {
-	padding-left:0px;
-}
-
-#gglstmp_login label{
-	float: left;
-	width: 100px;
-}
-
-#gglstmp_pass label{
-	float: left;
-	width: 100px;
-}
-
-#gglstmp_add_menu{
-	line-height: 25px;
-}
-
-#gglstmp_del_menu{
-	line-height: 25px;
-}
-
-#gglstmp_robot{
-	line-height: 25px;
-}
-
-#gglstmp_new_sitemap{
-	line-height: 14px;
-}
-
-#gglstmp_info{
-	line-height: 25px;
-}
-
 #adminmenu #toplevel_page_bws_plugins div.wp-menu-image
 {
 	background: url("../images/icon_16.png") no-repeat scroll center center transparent;
@@ -51,4 +13,8 @@
 #toplevel_page_bws_plugins .wp-submenu .wp-first-item
 {
 	display:none;
+}
+
+.error {
+	color:red;
 }

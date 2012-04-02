@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/
 Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle sitemap, sitemp, google api sitemap, api sitemap, webmaster sitemap, webmaster tols, google stmp
 Requires at least: 2.9
-Tested up to: 3.3
-Stable tag: 1.06
+Tested up to: 3.3.1
+Stable tag: 1.07
 
 This plugin allows you to add sitemap file to google webmaster tools.
 
@@ -57,25 +57,31 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 
 == Changelog ==
 
-= 1.06 =
-* Added language files for plugin.
+= V1.07 - 02.04.2012 =
+* Bugfix: CURL and save setting errors were fixed.
+
+= V1.06 - 26.03.2012 =
+* New: Added language files for plugin.
 
 = 1.05 =
-* Added sitemap.xsl stylesheet.
+* New: Added sitemap.xsl stylesheet.
 
 = 1.04 =
-* Added ability to add sitemap.xml path in robots.txt.
+* New: Added ability to add sitemap.xml path in robots.txt.
 
 = 1.03 =
-* Added ability to get info about site in google webmaster tools.
+* New: Added ability to get info about site in google webmaster tools.
 
 = 1.02 =
-* Added ability to delete site from google webmaster tools.
+* New: Added ability to delete site from google webmaster tools.
 
 = 1.01 =
-* Added ability to add site in google webmaster tools, verificate it and add sitemap file.
+* New: Added ability to add site in google webmaster tools, verificate it and add sitemap file.
 
 == Upgrade Notice ==
+
+= 1.07 =
+CURL and save setting errors were fixed.
 
 = 1.06 =
 Added language files for plugin.
