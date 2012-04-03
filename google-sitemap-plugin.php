@@ -4,7 +4,7 @@ Plugin Name: Google sitemap plugin
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in google webmaster tools account.
 Author: BestWebSoft
-Version: 1.07
+Version: 1.08
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -131,8 +131,14 @@ if( ! function_exists( 'gglstmp_add_pages' ) ) {
 //============================================ Function for creating sitemap file ====================
 if( ! function_exists( 'gglstmp_sitemapcreate' ) ) {
 	function gglstmp_sitemapcreate() {
-		global $wpdb; 
-		$loc = $wpdb->get_results( "SELECT ID, post_modified, post_status, post_type, ping_status FROM $wpdb->posts WHERE post_status = 'publish' AND ping_status = 'open' AND post_type <> 'nav_menu_item'" );
+		global $wpdb, $gglstmp_settings; 
+		$str = "";
+		foreach( $gglstmp_settings as $val ) {
+			if( $str != "")
+				$str .= ", ";
+			$str .= "'".$val."'";
+		}
+		$loc = $wpdb->get_results( "SELECT ID, post_modified, post_status, post_type, ping_status FROM $wpdb->posts WHERE post_status = 'publish' AND post_type IN (" . $str . ")" );
 		$xml = new DomDocument('1.0','utf-8');
 		$xml_stylesheet_path = "wp-content/plugins/google-sitemap-plugin/sitemap.xsl";
 		$xslt = $xml->createProcessingInstruction( 'xml-stylesheet', "type=\"text/xsl\" href=\"$xml_stylesheet_path\"" );
@@ -157,11 +163,52 @@ if( ! function_exists( 'gglstmp_sitemapcreate' ) ) {
 	}
 }
 
+if( ! function_exists( 'register_gglstmp_settings' ) ) {
+	function register_gglstmp_settings() {
+		global $wpmu, $gglstmp_settings;
+
+		$gglstmp_option_defaults = array( 'page', 'post' );
+
+		if ( 1 == $wpmu ) {
+			if( ! get_site_option( 'gglstmp_settings' ) ) {
+				add_site_option( 'gglstmp_settings', $gglstmp_option_defaults );
+			}
+		} 
+		else {
+			if( ! get_option( 'gglstmp_settings' ) )
+				add_option( 'gglstmp_settings', $gglstmp_option_defaults );
+		}
+			
+		if ( 1 == $wpmu )
+			$gglstmp_settings = get_site_option( 'gglstmp_settings' ); 
+		else
+			$gglstmp_settings = get_option( 'gglstmp_settings' );
+	}	
+}
+
+if( ! function_exists( 'delete_gglstmp_settings' ) ) {
+	function delete_gglstmp_settings() {
+		delete_option( 'gglstmp_settings' );
+	}
+}   
+
+if( ! function_exists( 'gglstmp_settings_global' ) ) {
+	function gglstmp_settings_global() {
+		global $wpmu, $gglstmp_settings;
+		$gglstmp_option_defaults = array( 'page', 'post' );
+		$gglstmp_settings = array();
+		if ( 1 == $wpmu )
+			$gglstmp_settings = get_site_option( 'gglstmp_settings' ); 
+		else
+			$gglstmp_settings = get_option( 'gglstmp_settings' );
+		$gglstmp_settings = array_merge( $gglstmp_option_defaults, $gglstmp_settings );
+	}
+}   
+
 //============================================ Function for creating setting page ====================
 if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 	function gglstmp_settings_page () {
-		global $url_home;
-		global $url;
+		global $url_home, $gglstmp_settings, $url, $wpdb;
 		$url_robot = ABSPATH . "robots.txt";
 		$url_sitemap = ABSPATH . "sitemap.xml";
 		$message = "";
@@ -169,6 +216,12 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 			$message =  __( "Your sitemap file was created in the root directory of the site. ", 'sitemap' );
 			gglstmp_sitemapcreate();
 		}
+		if( isset( $_REQUEST['gglstmp_submit'] ) ) {
+			$gglstmp_settings = isset( $_REQUEST['gglstmp_settings'] ) ? $_REQUEST['gglstmp_settings'] : array() ;
+			update_option( 'gglstmp_settings', $gglstmp_settings );
+			$message .= __( "Options saved." , 'sitemap' );	
+		}
+		$gglstmp_result = $wpdb->get_results( "SELECT post_type FROM ". $wpdb->posts ." WHERE post_type NOT IN ( 'revision', 'attachment', 'nav_menu_item' ) GROUP BY post_type" );	
 		?>
 		<div class="wrap">
 			<div class="icon32 icon32-bws" id="icon-options-general"></div>
@@ -203,6 +256,17 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 							<input type='checkbox' name='gglstmp_checkbox' value="1" /> <label for="gglstmp_checkbox"><?php _e( "I want to add sitemap file path in robots.txt", 'sitemap' );?></label>
 						</td>
 					</tr>
+					<tr valign="top">
+						<th scope="row" colspan="2"><?php _e( 'Please choose the necessary post types in order to add the links to them in the sitemap:', 'sitemap' ); ?> </th>
+					</tr>
+					<tr valign="top">
+						<td colspan="2">
+							<?php 
+							foreach ( $gglstmp_result as $key => $value ) { ?>
+								<input type="checkbox" <?php echo ( in_array( $value->post_type, $gglstmp_settings ) ?  'checked="checked"' : "" ); ?> name="gglstmp_settings[]" value="<?php echo $value->post_type; ?>"/><span style="text-transform: capitalize; padding-left: 5px;"><?php echo $value->post_type; ?></span><br />
+							<?php } ?>
+						</td>
+					</tr>	
 					<?php if ( $curl_exist == 1 ) { ?>
 					<tr valign="top">
 						<td colspan="2">
@@ -221,6 +285,7 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 					</tr>
 					<?php } ?>
 				</table>
+				<input type="hidden" name="gglstmp_submit" value="submit" />
 				<p class="submit">
 					<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 				</p>
@@ -455,6 +520,11 @@ if ( ! function_exists ( 'gglstmp_plugin_init' ) ) {
 		load_plugin_textdomain( 'sitemap', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' ); 
 	}
 }
+
+register_activation_hook( __FILE__, 'register_gglstmp_settings'); // activate plugin
+register_uninstall_hook( __FILE__, 'delete_gglstmp_settings'); // uninstall plugin
+
+add_action( 'init', 'gglstmp_settings_global' );
 
 add_action( 'admin_enqueue_scripts', 'gglstmp_add_my_stylesheet' );
 add_action( 'wp_enqueue_scripts', 'gglstmp_add_my_stylesheet' );
