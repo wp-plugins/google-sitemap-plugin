@@ -4,7 +4,7 @@ Plugin Name: Google sitemap plugin
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in google webmaster tools account.
 Author: BestWebSoft
-Version: 1.08
+Version: 1.09
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -293,10 +293,16 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 		</div>
 		<?php
 		//============================ Adding location of sitemap file to the robots.txt =============
-		if( isset( $_POST['gglstmp_ch1_robots'] ) ){
+		if( isset( $_POST['gglstmp_checkbox'] ) ){
 			if ( file_exists( $url_robot ) ) {		
 				$fp = fopen( ABSPATH . 'robots.txt', "a+" );
-				fwrite($fp, "\nSitemap: " . $url_home . "/sitemap.xml\n" );
+				$flag = false;
+				while ( ($line = fgets($fp)) !== false) {
+						if ( $line == "Sitemap: " . $url_home . "/sitemap.xml\n" )
+								$flag = true;
+				}
+				if( ! $flag )
+						fwrite($fp, "\nSitemap: " . $url_home . "/sitemap.xml\n" );
 				fclose ( $fp ); 
 			}
 			else{

@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/
 Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle sitemap, sitemp, google api sitemap, api sitemap, webmaster sitemap, webmaster tols, google stmp
 Requires at least: 2.9
-Tested up to: 3.3.1
-Stable tag: 1.08
+Tested up to: 3.4
+Stable tag: 1.09
 
 This plugin allows you to add sitemap file to google webmaster tools.
 
@@ -14,6 +14,7 @@ Google sitemap plugin allows you to create and add sitemap file to google webmas
 
 = Translation =
 
+* Arabic (ar_AR) (thanks to Albayan Design, hani aladoli)
 * Russian (ru_RU)
 
 If you create your own language pack or update an existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank"> text in PO and MO files</a> for <a href="http://bestwebsoft.com/" target="_blank">BWS</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
@@ -67,6 +68,11 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 
 == Changelog ==
 
+= V1.09 - 27.06.2012 =
+* New: Added Arabic language file for plugin.
+* Bugfix: Create new sitemap file and Add sitemap file path in robots.txt errors were fixed.
+* Update : We updated all functionality for wordpress 3.4.
+
 = V1.08 - 03.04.2012 =
 * NEW: Added a possibility to include links on the selected post types to the sitemap.
 
@@ -92,6 +98,9 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 * New: Added ability to add site in google webmaster tools, verificate it and add sitemap file.
 
 == Upgrade Notice ==
+
+= V1.09 =
+Added Arabic language file for plugin. Create new sitemap file and Add sitemap file path in robots.txt errors were fixed. We updated all functionality for wordpress 3.4.
 
 = V1.08 =
 Added a possibility to include links on the selected post types to the sitemap.
