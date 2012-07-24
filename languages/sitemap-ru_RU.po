@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: google-sitemap-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-27 18:35+0300\n"
-"PO-Revision-Date: 2012-06-27 18:35+0300\n"
+"POT-Creation-Date: 2012-07-24 19:49+0300\n"
+"PO-Revision-Date: 2012-07-24 19:49+0300\n"
 "Last-Translator: zos <zos@bestwebsoft.com>\n"
 "Language-Team: bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language: \n"
@@ -28,7 +28,7 @@ msgid "Read more"
 msgstr "Подробнее..."
 
 #: google-sitemap-plugin.php:88
-#: google-sitemap-plugin.php:517
+#: google-sitemap-plugin.php:518
 msgid "Settings"
 msgstr "Настройки"
 
@@ -146,51 +146,51 @@ msgstr "Я хочу получить информацию об этом сайт
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: google-sitemap-plugin.php:331
+#: google-sitemap-plugin.php:332
 msgid "You must enter login and password"
 msgstr "Вы должны ввести логин и пароль"
 
-#: google-sitemap-plugin.php:334
+#: google-sitemap-plugin.php:335
 msgid "You must choose at least one action"
 msgstr "Вы должны выбрать одно из действий"
 
-#: google-sitemap-plugin.php:364
+#: google-sitemap-plugin.php:365
 msgid "Login and password don\\'t match, try again, please"
 msgstr "Логин и пароль введены неправильно, попробуйте еще раз"
 
-#: google-sitemap-plugin.php:423
+#: google-sitemap-plugin.php:424
 msgid "Info about this site in google webmaster tools"
 msgstr "Я хочу получить информацию об этом сайте из Google webmaster tools"
 
-#: google-sitemap-plugin.php:425
+#: google-sitemap-plugin.php:426
 msgid "This site is not added to the google webmaster tools account"
 msgstr "Я хочу добавить этот сайт в Google webmaster tools"
 
-#: google-sitemap-plugin.php:446
+#: google-sitemap-plugin.php:447
 msgid "Site url: "
 msgstr "Урл сайта:"
 
-#: google-sitemap-plugin.php:447
+#: google-sitemap-plugin.php:448
 msgid "Site verification: "
 msgstr "Верификация сайта:"
 
-#: google-sitemap-plugin.php:449
+#: google-sitemap-plugin.php:450
 msgid "verificated"
 msgstr "верифицровано"
 
-#: google-sitemap-plugin.php:451
+#: google-sitemap-plugin.php:452
 msgid "non verificated"
 msgstr "не верефицирован"
 
-#: google-sitemap-plugin.php:452
+#: google-sitemap-plugin.php:453
 msgid "Sitemap file: "
 msgstr "Файл карты сайта:"
 
-#: google-sitemap-plugin.php:454
+#: google-sitemap-plugin.php:455
 msgid "added"
 msgstr "добавлен"
 
-#: google-sitemap-plugin.php:456
+#: google-sitemap-plugin.php:457
 msgid "not added"
 msgstr "не добавлен"
 

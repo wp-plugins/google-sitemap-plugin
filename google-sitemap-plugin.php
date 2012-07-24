@@ -4,7 +4,7 @@ Plugin Name: Google sitemap plugin
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in google webmaster tools account.
 Author: BestWebSoft
-Version: 1.09
+Version: 1.10
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -212,11 +212,11 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 		$url_robot = ABSPATH . "robots.txt";
 		$url_sitemap = ABSPATH . "sitemap.xml";
 		$message = "";
-		if( isset( $_POST['gglstmp_new'] ) ) {
+		if( isset( $_POST['gglstmp_new'] ) && check_admin_referer( plugin_basename(__FILE__), 'gglstmp_nonce_name' ) ) {
 			$message =  __( "Your sitemap file was created in the root directory of the site. ", 'sitemap' );
 			gglstmp_sitemapcreate();
 		}
-		if( isset( $_REQUEST['gglstmp_submit'] ) ) {
+		if( isset( $_REQUEST['gglstmp_submit'] ) && check_admin_referer( plugin_basename(__FILE__), 'gglstmp_nonce_name' ) ) {
 			$gglstmp_settings = isset( $_REQUEST['gglstmp_settings'] ) ? $_REQUEST['gglstmp_settings'] : array() ;
 			update_option( 'gglstmp_settings', $gglstmp_settings );
 			$message .= __( "Options saved." , 'sitemap' );	
@@ -289,11 +289,12 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 				<p class="submit">
 					<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 				</p>
+				<?php wp_nonce_field( plugin_basename(__FILE__), 'gglstmp_nonce_name' ); ?>
 			</form>
 		</div>
 		<?php
 		//============================ Adding location of sitemap file to the robots.txt =============
-		if( isset( $_POST['gglstmp_checkbox'] ) ){
+		if( isset( $_POST['gglstmp_checkbox'] ) && check_admin_referer( plugin_basename(__FILE__), 'gglstmp_nonce_name' ) ){
 			if ( file_exists( $url_robot ) ) {		
 				$fp = fopen( ABSPATH . 'robots.txt', "a+" );
 				$flag = false;

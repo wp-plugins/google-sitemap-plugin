@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: google-sitemap-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-27 18:34+0300\n"
-"PO-Revision-Date: 2012-06-27 18:35+0300\n"
+"POT-Creation-Date: 2012-07-24 19:49+0300\n"
+"PO-Revision-Date: 2012-07-24 19:49+0300\n"
 "Last-Translator: zos <zos@bestwebsoft.com>\n"
 "Language-Team: Albayan Design, hani aladoli <info@albayan-design.com, darkking8@gmail.com>\n"
 "Language: \n"
@@ -28,7 +28,7 @@ msgid "Read more"
 msgstr "اقراء المزيد..."
 
 #: google-sitemap-plugin.php:88
-#: google-sitemap-plugin.php:517
+#: google-sitemap-plugin.php:518
 msgid "Settings"
 msgstr "الاعدادات"
 
@@ -146,51 +146,51 @@ msgstr "ارغب في الحصول علي البيانات هذه الموقع �
 msgid "Save Changes"
 msgstr "حفظ الاعدادات"
 
-#: google-sitemap-plugin.php:331
+#: google-sitemap-plugin.php:332
 msgid "You must enter login and password"
 msgstr "يجب عليك كتابة اسم الدخول والرقم السري"
 
-#: google-sitemap-plugin.php:334
+#: google-sitemap-plugin.php:335
 msgid "You must choose at least one action"
 msgstr "يجب عليك اختيار عملية واحدة علي الاقل"
 
-#: google-sitemap-plugin.php:364
+#: google-sitemap-plugin.php:365
 msgid "Login and password don\\'t match, try again, please"
 msgstr "اسم الدخول والرقم السري // غير مطابقة , الرجاء اعادة المحاولة مرة اخري"
 
-#: google-sitemap-plugin.php:423
+#: google-sitemap-plugin.php:424
 msgid "Info about this site in google webmaster tools"
 msgstr "المعلومات عن هذه الموقع في google webmaster tools"
 
-#: google-sitemap-plugin.php:425
+#: google-sitemap-plugin.php:426
 msgid "This site is not added to the google webmaster tools account"
 msgstr "هذه الموقع غير مضاف الي حساب google webmaster tools"
 
-#: google-sitemap-plugin.php:446
+#: google-sitemap-plugin.php:447
 msgid "Site url: "
 msgstr "رابط الموقع :"
 
-#: google-sitemap-plugin.php:447
+#: google-sitemap-plugin.php:448
 msgid "Site verification: "
 msgstr "كود التحقق لهذه الموقع :"
 
-#: google-sitemap-plugin.php:449
+#: google-sitemap-plugin.php:450
 msgid "verificated"
 msgstr "التحقق"
 
-#: google-sitemap-plugin.php:451
+#: google-sitemap-plugin.php:452
 msgid "non verificated"
 msgstr "لا يوجد تحقق"
 
-#: google-sitemap-plugin.php:452
+#: google-sitemap-plugin.php:453
 msgid "Sitemap file: "
 msgstr "ملف الخريطة :"
 
-#: google-sitemap-plugin.php:454
+#: google-sitemap-plugin.php:455
 msgid "added"
 msgstr "اضيفت"
 
-#: google-sitemap-plugin.php:456
+#: google-sitemap-plugin.php:457
 msgid "not added"
 msgstr "لم تضاف"
 
