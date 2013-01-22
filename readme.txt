@@ -5,6 +5,8 @@ Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle 
 Requires at least: 2.9
 Tested up to: 3.4
 Stable tag: 1.10
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin allows you to add sitemap file to google webmaster tools.
 
