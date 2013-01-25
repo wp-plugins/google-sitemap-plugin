@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/
 Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle sitemap, sitemp, google api sitemap, api sitemap, webmaster sitemap, webmaster tols, google stmp
 Requires at least: 2.9
-Tested up to: 3.4
-Stable tag: 1.10
+Tested up to: 3.5
+Stable tag: 2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,10 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 
 == Changelog ==
 
+= V2 - 25.01.2013 =
+* New: The automatic update of sitemap after a post or page is trashed or published is added.
+* Update : We updated all functionality for wordpress 3.5.
+
 = V1.10 - 24.07.2012 =
 * Bugfix : Cross Site Request Forgery bug was fixed. 
 * Update : We updated all functionality for wordpress 3.4.1.
@@ -104,6 +108,9 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 * New: Added ability to add site in google webmaster tools, verificate it and add sitemap file.
 
 == Upgrade Notice ==
+
+= V2 =
+The automatic update of sitemap after a post or page is trashed or published is added. We updated all functionality for wordpress 3.5.
 
 = V1.10 =
 Cross Site Request Forgery bug was fixed. We updated all functionality for wordpress 3.4.1.

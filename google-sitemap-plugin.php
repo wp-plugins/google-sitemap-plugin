@@ -4,7 +4,7 @@ Plugin Name: Google sitemap plugin
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in google webmaster tools account.
 Author: BestWebSoft
-Version: 1.10
+Version: 2
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -24,14 +24,6 @@ License: GPLv2 or later
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
-//============================================ Function for adding style ====================
-if( ! function_exists( 'gglstmp_add_my_stylesheet' ) ) {
-	function gglstmp_add_my_stylesheet() {
-		wp_register_style( 'google-sitemap-StyleSheets', plugins_url( 'css/stylesheet.css', __FILE__ ) );
-		wp_enqueue_style( 'google-sitemap-StyleSheets' );
-	}
-}
 
 //============================================ Function for adding page in admin menu ====================
 if( ! function_exists( 'bws_add_menu_render' ) ) {
@@ -118,10 +110,7 @@ if( ! function_exists( 'gglstmp_add_pages' ) ) {
 		add_menu_page( __( 'BWS Plugins', 'sitemap' ), __( 'BWS Plugins', 'sitemap' ), 'manage_options', 'bws_plugins', 'bws_add_menu_render', WP_CONTENT_URL."/plugins/google-sitemap-plugin/images/px.png", 1001); 
 		add_submenu_page( 'bws_plugins', __( 'Google Sitemap Options', 'sitemap' ), __( 'Google Sitemap', 'sitemap' ), 'manage_options', "google-sitemap-plugin.php", 'gglstmp_settings_page');
 		
-		global $url_home;
-		global $url;
-		global $url_send;
-		global $url_send_sitemap;
+		global $url_home, $url, $url_send, $url_send_sitemap;
 		$url_home = home_url();
 		$url = urlencode( $url_home . "/" );
 		$url_send = "https://www.google.com/webmasters/tools/feeds/sites/";
@@ -184,6 +173,7 @@ if( ! function_exists( 'register_gglstmp_settings' ) ) {
 			$gglstmp_settings = get_site_option( 'gglstmp_settings' ); 
 		else
 			$gglstmp_settings = get_option( 'gglstmp_settings' );
+
 	}	
 }
 
@@ -196,13 +186,14 @@ if( ! function_exists( 'delete_gglstmp_settings' ) ) {
 if( ! function_exists( 'gglstmp_settings_global' ) ) {
 	function gglstmp_settings_global() {
 		global $wpmu, $gglstmp_settings;
+		
+		register_gglstmp_settings();
+
 		$gglstmp_option_defaults = array( 'page', 'post' );
-		$gglstmp_settings = array();
-		if ( 1 == $wpmu )
-			$gglstmp_settings = get_site_option( 'gglstmp_settings' ); 
-		else
-			$gglstmp_settings = get_option( 'gglstmp_settings' );
+
 		$gglstmp_settings = array_merge( $gglstmp_option_defaults, $gglstmp_settings );
+
+		update_option( 'gglstmp_settings', $gglstmp_settings );
 	}
 }   
 
@@ -210,9 +201,11 @@ if( ! function_exists( 'gglstmp_settings_global' ) ) {
 if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 	function gglstmp_settings_page () {
 		global $url_home, $gglstmp_settings, $url, $wpdb;
+
 		$url_robot = ABSPATH . "robots.txt";
 		$url_sitemap = ABSPATH . "sitemap.xml";
 		$message = "";
+
 		if( isset( $_POST['gglstmp_new'] ) && check_admin_referer( plugin_basename(__FILE__), 'gglstmp_nonce_name' ) ) {
 			$message =  __( "Your sitemap file was created in the root directory of the site. ", 'sitemap' );
 			gglstmp_sitemapcreate();
@@ -249,7 +242,7 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 				<table class="form-table">
 					<tr valign="top">
 						<td colspan="2">
-							<input type='checkbox' name='gglstmp_new' value="1" /> <label for="gglstmp_new"><?php _e( "I want to create new sitemap file", 'sitemap' );	?></label>
+							<input type='checkbox' name='gglstmp_new' value="1" /> <label for="gglstmp_new"><?php _e( "I want to create new / update manualy sitemap file", 'sitemap' );	?></label>
 						</td>
 					</tr>
 					<tr valign="top">
@@ -382,6 +375,14 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 	}
 }
 
+//============================================ Function for adding style ====================
+if( ! function_exists( 'gglstmp_add_plugin_stylesheet' ) ) {
+	function gglstmp_add_plugin_stylesheet() {
+		wp_register_style( 'google-sitemap-StyleSheets', plugins_url( 'css/stylesheet.css', __FILE__ ) );
+		wp_enqueue_style( 'google-sitemap-StyleSheets' );
+	}
+}
+
 //============================================ Curl function ====================
 if( ! function_exists( 'gglstmp_curl_funct' ) ) {
 	function gglstmp_curl_funct( $au, $url_send, $type_request, $content ) {
@@ -416,10 +417,8 @@ if( ! function_exists( 'gglstmp_curl_funct' ) ) {
 //============================================ Function to get info about site ====================
 if( ! function_exists( 'gglstmp_info_site' ) ) {	
 	function gglstmp_info_site( $au ) {
-		global $url_home;
-		global $url;
-		global $url_send;
-		global $url_send_sitemap;
+		global $url_home, $url, $url_send, $url_send_sitemap;
+
 		$hasilx = gglstmp_curl_funct( $au, $url_send . $url, "GET", false );
 		//========================= Getting info about site in google webmaster tools ====================
 		echo "<h2><br />". __( "Info about this site in google webmaster tools", 'sitemap') ."</h2><br />";
@@ -496,15 +495,23 @@ if( ! function_exists( 'gglstmp_add_site' ) ) {
 //============================================ Adding sitemap file ====================
 if( ! function_exists( 'gglstmp_add_sitemap' ) ) {
 	function gglstmp_add_sitemap( $au ) {
-		global $url_home;
-		global $url;
-		global $url_send_sitemap;
+		global $url_home, $url, $url_send_sitemap;
 		$content  = "<atom:entry xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:wt=\"http://schemas.google.com/webmasters/tools/2007\">"
 		."<atom:id>" . $url_home . "/sitemap.xml</atom:id>"
 		."<atom:category scheme=\"http://schemas.google.com/g/2005#kind\" term=\"http://schemas.google.com/webmasters/tools/2007#sitemap-regular\"/>"
 		."<wt:sitemap-type>WEB</wt:sitemap-type>"
 		."</atom:entry>";
 		$hasil1 = gglstmp_curl_funct( $au, $url_send_sitemap . $url . "/sitemaps/", "POST", $content );
+	}
+}
+
+//============================================ Updating the sitemap after a post or page is trashed or published ====================
+if( ! function_exists( 'gglstmp_update_sitemap' ) ) {
+	function gglstmp_update_sitemap( $post_id ) {
+		if ( ! wp_is_post_revision( $post_id ) ) {
+			if( 'publish' == get_post_status( $post_id ) || 'trash' == get_post_status( $post_id ) || 'future' == get_post_status( $post_id ) )
+				gglstmp_sitemapcreate();
+		}
 	}
 }
 
@@ -534,9 +541,12 @@ register_uninstall_hook( __FILE__, 'delete_gglstmp_settings'); // uninstall plug
 
 add_action( 'init', 'gglstmp_settings_global' );
 
-add_action( 'admin_enqueue_scripts', 'gglstmp_add_my_stylesheet' );
-add_action( 'wp_enqueue_scripts', 'gglstmp_add_my_stylesheet' );
+add_action( 'admin_enqueue_scripts', 'gglstmp_add_plugin_stylesheet' );
+//add_action( 'wp_enqueue_scripts', 'gglstmp_add_plugin_stylesheet' );
 add_action( 'admin_init', 'gglstmp_plugin_init' );
 add_action( 'admin_menu', 'gglstmp_add_pages' );
 add_filter( 'plugin_action_links', 'gglstmp_action_links', 10, 2 );
+
+add_action( 'save_post', 'gglstmp_update_sitemap' );
+add_action( 'trashed_post ', 'gglstmp_update_sitemap' );
 ?>
