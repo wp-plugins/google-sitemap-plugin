@@ -4,7 +4,7 @@ Donate link: http://bestwebsoft.com/
 Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle sitemap, sitemp, google api sitemap, api sitemap, webmaster sitemap, webmaster tols, google stmp
 Requires at least: 2.9
 Tested up to: 3.5.1
-Stable tag: 2.1
+Stable tag: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,6 +71,9 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 
 == Changelog ==
 
+= V2.2 - 29.01.2013 =
+* Bugfix : Update option database request bug was fixed.
+
 = V2.1 - 29.01.2013 =
 * NEW: French language file was added to the plugin.
 * Update : We updated all functionality for wordpress 3.5.1.
@@ -113,6 +116,9 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 * New: Added ability to add site in google webmaster tools, verificate it and add sitemap file.
 
 == Upgrade Notice ==
+
+= V2.2 =
+Update option database request bug was fixed.
 
 = V2.1 =
 French language file was added to the plugin. We updated all functionality for wordpress 3.5.1.

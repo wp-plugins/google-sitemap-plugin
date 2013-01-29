@@ -4,7 +4,7 @@ Plugin Name: Google sitemap plugin
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in google webmaster tools account.
 Author: BestWebSoft
-Version: 2.1
+Version: 2.2
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -153,6 +153,7 @@ if( ! function_exists( 'gglstmp_sitemapcreate' ) ) {
 	}
 }
 
+//============================================ Function for register of the plugin settings on register_activation_hook ====================
 if( ! function_exists( 'register_gglstmp_settings' ) ) {
 	function register_gglstmp_settings() {
 		global $wpmu, $gglstmp_settings;
@@ -177,23 +178,18 @@ if( ! function_exists( 'register_gglstmp_settings' ) ) {
 	}	
 }
 
+//============================================ Function for delete of the plugin settings on register_activation_hook ====================
 if( ! function_exists( 'delete_gglstmp_settings' ) ) {
 	function delete_gglstmp_settings() {
 		delete_option( 'gglstmp_settings' );
 	}
 }   
 
+//============================================ Function for register of the plugin settings on init core ====================
 if( ! function_exists( 'gglstmp_settings_global' ) ) {
 	function gglstmp_settings_global() {
-		global $wpmu, $gglstmp_settings;
-		
+		global $wpmu, $gglstmp_settings;		
 		register_gglstmp_settings();
-
-		$gglstmp_option_defaults = array( 'page', 'post' );
-
-		$gglstmp_settings = array_merge( $gglstmp_option_defaults, $gglstmp_settings );
-
-		update_option( 'gglstmp_settings', $gglstmp_settings );
 	}
 }   
 
@@ -220,7 +216,7 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 		<div class="wrap">
 			<div class="icon32 icon32-bws" id="icon-options-general"></div>
 			<h2><?php _e( "Google Sitemap options", 'sitemap' ); ?></h2>
-			<div class="updated fade" <?php if( ! isset( $_REQUEST['gglstmp_new'] ) ) echo "style=\"display:none\""; ?>><p><strong><?php echo $message; ?></strong></p></div>
+			<div class="updated fade" <?php if( ! isset( $_REQUEST['gglstmp_new'] ) || ! isset( $_REQUEST['gglstmp_submit'] ) ) echo "style=\"display:none\""; ?>><p><strong><?php echo $message; ?></strong></p></div>
 			<form action="admin.php?page=google-sitemap-plugin.php" method='post' id="gglstmp_auth" name="gglstmp_auth">
 				<?php //=============================== Creating sitemap file ====================================
 				if( file_exists( $url_sitemap ) ) {
