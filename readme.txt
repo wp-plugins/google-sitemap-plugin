@@ -4,7 +4,7 @@ Donate link: http://bestwebsoft.com/
 Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle sitemap, sitemp, google api sitemap, api sitemap, webmaster sitemap, webmaster tols, google stmp
 Requires at least: 2.9
 Tested up to: 3.5.1
-Stable tag: 2.3
+Stable tag: 2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,6 +19,7 @@ Google sitemap plugin allows you to create and add sitemap file to google webmas
 * Arabic (ar_AR) (thanks to Albayan Design, hani aladoli)
 * French (fr_FR) (thanks to <a href="mailto:paillat.jeff@gmail.com">Jeff</a>)
 * Russian (ru_RU)
+* Spanish (es_ES)(thanks to <a herf="mailto:mrjosefernando@gmail.com">Fernando De León</a>)
 
 If you create your own language pack or update an existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank"> text in PO and MO files</a> for <a href="http://bestwebsoft.com/" target="_blank">BWS</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
 
@@ -71,6 +72,9 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 
 == Changelog ==
 
+= V2.4 - 20.02.2013 =
+* NEW : Spanish language file was added to the plugin.
+
 = V2.3 - 31.01.2013 =
 * Bugfix : Bugs in admin menu were fixed.
 
@@ -119,6 +123,9 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 * New: Added ability to add site in google webmaster tools, verificate it and add sitemap file.
 
 == Upgrade Notice ==
+
+= V2.4 =
+Spanish language file was added to the plugin.
 
 = V2.3 =
 Bugs in admin menu were fixed.
