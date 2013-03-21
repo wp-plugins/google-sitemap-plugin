@@ -4,7 +4,7 @@ Donate link: http://bestwebsoft.com/
 Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle sitemap, sitemp, google api sitemap, api sitemap, webmaster sitemap, webmaster tols, google stmp
 Requires at least: 2.9
 Tested up to: 3.5.1
-Stable tag: 2.4
+Stable tag: 2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,8 @@ If you create your own language pack or update an existing one, you can send <a 
 
 Dear users, if you have any questions or propositions regarding our plugins (current options, new options, current issues) please feel free to contact us. Please note that we accept requests in English only. All messages on another languages wouldn't be accepted. 
 
+Also, emails which are reporting about plugin's bugs are accepted for investigation and fixing. Your request must contain URL of the website, issues description and WordPress admin panel access. Plugin customization based on your Wordpress theme is a paid service (standard price is $40, but it could be higer and depends on the complexity of requested changes). We will analize existing issue and make necessary changes after 100% pre-payment.All these paid changes and modifications could be included to the next version of plugin and will be shared for all users like an integral part of the plugin. Free fixing services will be provided for user who send translation on their native language (this should be a new translation of a certain plugin, and you can check available translations on the official plugin page).
+
 == Installation ==
 
 1. Upload `google sitemap` folder to the `/wp-content/plugins/` directory.
@@ -39,7 +41,7 @@ Dear users, if you have any questions or propositions regarding our plugins (cur
 
 After opening plugin settings page your sitemap file will be created automatically. If you're already have sitemap file and you don't want to replace it just do not select field "I want to create new sitemap file".
 If you don't want to add sitemap file in google webmaster tools automatically just follow short instruction. In other case you need to enter your login and password and choose necceseray action.
-To add path to your sitemap file in robots.txt you don't need to enter login and password, you need just select necessary field and press "Update button".
+To add path to your sitemap file in robots.txt you don't need to enter login and password, you need just select necessary field and press "Update button". If you're using multisiting, the plugin does not allow to add a site map to robots.txt
 
 = How to create sitemap.xml file =
 
@@ -71,6 +73,10 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 2. Google sitemap Settings page at the hosting which doesn't support CURL.
 
 == Changelog ==
+
+= V2.5 - 21.03.2013 =
+* New: Added ability to create sitemap.xml for multi-sites.
+* Update : We updated plugin for custom WP configuration.
 
 = V2.4 - 20.02.2013 =
 * NEW : Spanish language file was added to the plugin.
@@ -123,6 +129,9 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 * New: Added ability to add site in google webmaster tools, verificate it and add sitemap file.
 
 == Upgrade Notice ==
+
+= V2.5 =
+Added ability to create sitemap.xml for multi-sites. We updated plugin for custom WP configuration.
 
 = V2.4 =
 Spanish language file was added to the plugin.

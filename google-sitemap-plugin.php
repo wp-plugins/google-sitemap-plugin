@@ -4,7 +4,7 @@ Plugin Name: Google sitemap plugin
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in google webmaster tools account.
 Author: BestWebSoft
-Version: 2.4
+Version: 2.5
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -131,7 +131,11 @@ if( ! function_exists( 'gglstmp_sitemapcreate' ) ) {
 		}
 		$loc = $wpdb->get_results( "SELECT ID, post_modified, post_status, post_type, ping_status FROM $wpdb->posts WHERE post_status = 'publish' AND post_type IN (" . $str . ")" );
 		$xml = new DomDocument('1.0','utf-8');
-		$xml_stylesheet_path = "wp-content/plugins/google-sitemap-plugin/sitemap.xsl";
+		if ( defined( 'WP_CONTENT_DIR' ) ) {
+			$xml_stylesheet_path = basename( WP_CONTENT_DIR ) . "/plugins/google-sitemap-plugin/sitemap.xsl";
+		} else {
+			$xml_stylesheet_path = "wp-content/plugins/google-sitemap-plugin/sitemap.xsl";
+		}
 		$xslt = $xml->createProcessingInstruction( 'xml-stylesheet', "type=\"text/xsl\" href=\"$xml_stylesheet_path\"" );
 		$xml->appendChild($xslt);
 		$urlset = $xml->appendChild( $xml->createElementNS( 'http://www.sitemaps.org/schemas/sitemap/0.9','urlset' ) );
@@ -150,7 +154,12 @@ if( ! function_exists( 'gglstmp_sitemapcreate' ) ) {
 			$priority->appendChild( $xml->createTextNode( 1.0 ) );
 		}
 		$xml->formatOutput = true;
-		$xml->save( ABSPATH . 'sitemap.xml' );		
+		if ( is_multisite() ) {
+			$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', home_url() ) );
+			$xml->save( ABSPATH . 'sitemap_' . $home_url . '.xml' );
+		} else {
+			$xml->save( ABSPATH . 'sitemap.xml' );
+		}				
 	}
 }
 
@@ -200,8 +209,15 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 		global $url_home, $gglstmp_settings, $url, $wpdb;
 
 		$url_robot = ABSPATH . "robots.txt";
-		$url_sitemap = ABSPATH . "sitemap.xml";
+		if ( is_multisite() ) {
+			$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', home_url() ) );
+			$url_sitemap = ABSPATH . "sitemap_" . $home_url .".xml";
+		} else {
+			$url_sitemap = ABSPATH . "sitemap.xml";
+		}	
 		$message = "";
+
+		$gglstmp_robots = get_option( 'gglstmp_robots' );
 
 		if( isset( $_POST['gglstmp_new'] ) && check_admin_referer( plugin_basename(__FILE__), 'gglstmp_nonce_name' ) ) {
 			$message =  __( "Your sitemap file was created in the root directory of the site. ", 'sitemap' );
@@ -211,7 +227,61 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 			$gglstmp_settings = isset( $_REQUEST['gglstmp_settings'] ) ? $_REQUEST['gglstmp_settings'] : array() ;
 			update_option( 'gglstmp_settings', $gglstmp_settings );
 			$message .= __( "Options saved." , 'sitemap' );	
+		
+			if ( !isset( $_POST['gglstmp_checkbox'] ) ) {
+				if ( get_option( 'gglstmp_robots' ) )
+					update_option( 'gglstmp_robots', 0 );
+				$gglstmp_robots = get_option( 'gglstmp_robots' );
+			}
 		}
+		//============================ Adding location of sitemap file to the robots.txt =============
+		if( isset( $_POST['gglstmp_checkbox'] ) && check_admin_referer( plugin_basename(__FILE__), 'gglstmp_nonce_name' ) ){
+			if ( file_exists( $url_robot ) && !is_multisite() ) {	
+				$fp = fopen( ABSPATH . 'robots.txt', "a+" );
+				$flag = false;
+				while ( ( $line = fgets( $fp ) ) !== false ) {
+					if ( $line == "Sitemap: " . $url_home . "/sitemap.xml" )
+						$flag = true;
+				}
+				if( ! $flag )
+					fwrite( $fp, "\nSitemap: " . $url_home . "/sitemap.xml" );
+				fclose ( $fp );	 
+			}
+		/*	else{
+				$fp = fopen( ABSPATH . 'robots.txt', "a+" );
+				$output = "User-agent: *\n";
+				$public = get_option( 'blog_public' );
+				if ( '0' == $public ) {
+					$output .= "Disallow: /\n";
+				} else {
+					$site_url = parse_url( site_url() );
+					$path = ( !empty( $site_url['path'] ) ) ? $site_url['path'] : '';
+					$output .= "Disallow: $path/wp-admin/\n";
+					$output .= "Disallow: $path/wp-includes/\n";
+					$output .= "#Disallow: $path/wp-trackback/\n";
+					$output .= "#Disallow: $path/wp-feed/\n";
+					$output .= "#Disallow: $path/wp-comments/\n";
+					$output .= "#Disallow: $path/wp-content/plugins\n";
+					$output .= "#Disallow: $path/wp-content/themes\n";
+					$output .= "#Disallow: $path/wp-login.php\n";
+					$output .= "#Disallow: $path/wp-register.php\n";
+					$output .= "#Disallow: $path/feed\n";
+					$output .= "#Disallow: $path/trackback\n";
+					$output .= "#Disallow: $path/cgi-bin\n";
+					$output .= "#Disallow: $path/comments\n";
+					$output .= "#Disallow: *?s=\n";
+				}
+				$output .= "Sitemap: " . $url_home . "/sitemap.xml";
+				fwrite( $fp, $output );
+				fclose ($fp);
+			}*/
+			if( get_option( 'gglstmp_robots' ) === false )
+				add_option( 'gglstmp_robots', 1 );
+			else
+				update_option( 'gglstmp_robots', 1 );
+
+			$gglstmp_robots = get_option( 'gglstmp_robots' );
+		}		
 		$gglstmp_result = $wpdb->get_results( "SELECT post_type FROM ". $wpdb->posts ." WHERE post_type NOT IN ( 'revision', 'attachment', 'nav_menu_item' ) GROUP BY post_type" );	
 		?>
 		<div class="wrap">
@@ -227,8 +297,12 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 					gglstmp_sitemapcreate();
 					echo "<p>".__( "Your sitemap file was created in the root directory of the site. ", 'sitemap' ) . "</p>";	
 				}
-				//========================================== Recreating sitemap file ====================================				
-				echo '<p>'. __( "If you don't want to add this file automatically you may go through", 'sitemap' ) . " <a href=\"https://www.google.com/webmasters/tools/home?hl=en\">". __( "this", 'sitemap' ) . "</a> ". __( "link, sign in, select necessary site, select 'Sitemaps' and type in necessary field", 'sitemap' ) ." - '". $url_home."/sitemap.xml'.</p>";
+				//========================================== Recreating sitemap file ====================================	
+				if ( is_multisite() ) {
+					echo '<p>'. __( "If you don't want to add this file automatically you may go through", 'sitemap' ) . " <a href=\"https://www.google.com/webmasters/tools/home?hl=en\">". __( "this", 'sitemap' ) . "</a> ". __( "link, sign in, select necessary site, select 'Sitemaps' and type in necessary field", 'sitemap' ) ." - '". $url_home."/sitemap_" . $home_url .".xml'.</p>";
+				} else {			
+					echo '<p>'. __( "If you don't want to add this file automatically you may go through", 'sitemap' ) . " <a href=\"https://www.google.com/webmasters/tools/home?hl=en\">". __( "this", 'sitemap' ) . "</a> ". __( "link, sign in, select necessary site, select 'Sitemaps' and type in necessary field", 'sitemap' ) ." - '". $url_home."/sitemap.xml'.</p>";
+				}
 				if ( ! function_exists( 'curl_init' ) ) {
 					echo '<p class="error">'. __( "This hosting doesn't support CURL, so you can't add sitemap file automatically", 'sitemap' ). "</p>";	
 					$curl_exist = 0;
@@ -242,11 +316,20 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 							<input type='checkbox' name='gglstmp_new' value="1" /> <label for="gglstmp_new"><?php _e( "I want to create new / update manualy sitemap file", 'sitemap' );	?></label>
 						</td>
 					</tr>
-					<tr valign="top">
-						<td colspan="2">
-							<input type='checkbox' name='gglstmp_checkbox' value="1" /> <label for="gglstmp_checkbox"><?php _e( "I want to add sitemap file path in robots.txt", 'sitemap' );?></label>
-						</td>
-					</tr>
+					<?php if ( is_multisite() ) { ?>
+						<tr valign="top">
+							<td colspan="2">
+								<input type='checkbox' disabled="disabled" name='gglstmp_checkbox' value="1" <?php if( $gglstmp_robots == 1 ) echo 'checked="checked"'; ?>/> <label for="gglstmp_checkbox"><?php _e( "I want to add sitemap file path in robots.txt", 'sitemap' );?></label>
+								<p style="color:red"><?php _e( "Since you're using multisiting, the plugin does not allow to add a site map to robots.txt", 'sitemap' ); ?></div>
+							</td>
+						</tr>
+					<?php } else { ?>
+						<tr valign="top">
+							<td colspan="2">
+								<input type='checkbox' name='gglstmp_checkbox' value="1" <?php if( $gglstmp_robots == 1 ) echo 'checked="checked"'; ?>/> <label for="gglstmp_checkbox"><?php _e( "I want to add sitemap file path in robots.txt", 'sitemap' );?></label>
+							</td>
+						</tr>
+					<?php } ?>
 					<tr valign="top">
 						<th scope="row" colspan="2"><?php _e( 'Please choose the necessary post types in order to add the links to them in the sitemap:', 'sitemap' ); ?> </th>
 					</tr>
@@ -283,41 +366,7 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 				<?php wp_nonce_field( plugin_basename(__FILE__), 'gglstmp_nonce_name' ); ?>
 			</form>
 		</div>
-		<?php
-		//============================ Adding location of sitemap file to the robots.txt =============
-		if( isset( $_POST['gglstmp_checkbox'] ) && check_admin_referer( plugin_basename(__FILE__), 'gglstmp_nonce_name' ) ){
-			if ( file_exists( $url_robot ) ) {		
-				$fp = fopen( ABSPATH . 'robots.txt', "a+" );
-				$flag = false;
-				while ( ($line = fgets($fp)) !== false) {
-						if ( $line == "Sitemap: " . $url_home . "/sitemap.xml\n" )
-								$flag = true;
-				}
-				if( ! $flag )
-						fwrite($fp, "\nSitemap: " . $url_home . "/sitemap.xml\n" );
-				fclose ( $fp ); 
-			}
-			else{
-				$fp = fopen( ABSPATH . 'robots.txt', "a+" );
-				fwrite( $fp, "# User-agent: *\n
-# Disallow: /wp-admin/\n 
-# Disallow: /wp-includes/\n
-# Disallow: /wp-trackback\n
-# Disallow: /wp-feed\n
-# Disallow: /wp-comments\n
-# Disallow: /wp-content/plugins\n
-# Disallow: /wp-content/themes\n
-# Disallow: /wp-login.php\n
-# Disallow: /wp-register.php\n
-# Disallow: /feed\n
-# Disallow: /trackback\n
-# Disallow: /cgi-bin\n
-# Disallow: /comments\n
-# Disallow: *?s=
-\nSitemap: " . $url_home . "/sitemap.xml" );
-				fclose ($fp);
-			}
-		}
+		<?php		
 		//================================ Different checks for the valid entering data ===================
 		if( isset( $_POST['gglstmp_menu'] ) && ( ! isset( $_POST['gglstmp_email'] ) || ! isset( $_POST['gglstmp_passwd'] ) || empty( $_POST['gglstmp_email'] ) || empty( $_POST['gglstmp_passwd'] ) ) ) { ?> 
 			<script type = "text/javascript"> alert( "<?php _e( 'You must enter login and password', 'sitemap' );	?>" ) </script>
@@ -353,7 +402,7 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 			$au = isset( $httpParsedResponseAr["Auth"] ) ? $httpParsedResponseAr["Auth"] : false;
 			if ( ! $au && ( $_POST['gglstmp_email'] ) && ( $_POST['gglstmp_passwd'] ) ) {
 			?>
-				<script type = "text/javascript"> alert( "<?php _e( "Login and password don\'t match, try again, please", 'sitemap' );	?>" ) </script>
+				<script type = "text/javascript"> alert( "<?php _e( 'Login and password don\'t match, try again, please', 'sitemap' );	?>" ) </script>
 			<?php
 			}
 			else {
@@ -368,6 +417,24 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 					gglstmp_del_site( $au );//deleting site from google webmaster tools
 				}
 			}	
+		}
+	}
+}
+
+function gglstmp_robots_add_sitemap( $output, $public ){
+	if ( '0' == $public ) {
+		return $output;
+	} else {
+		if( strpos( $output, 'Sitemap' ) === false ) {
+			$site_url = parse_url( site_url() );
+			$path = ( !empty( $site_url['path'] ) ) ? $site_url['path'] : '';			
+			if ( is_multisite() ) {
+				$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', home_url() ) );
+				$output .= "Sitemap: " . $path . "/sitemap_" . $home_url . ".xml";
+			} else {
+				$output .= "Sitemap: " . $path . "/sitemap.xml";
+			}			
+			return $output;
 		}
 	}
 }
@@ -493,11 +560,20 @@ if( ! function_exists( 'gglstmp_add_site' ) ) {
 if( ! function_exists( 'gglstmp_add_sitemap' ) ) {
 	function gglstmp_add_sitemap( $au ) {
 		global $url_home, $url, $url_send_sitemap;
-		$content  = "<atom:entry xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:wt=\"http://schemas.google.com/webmasters/tools/2007\">"
-		."<atom:id>" . $url_home . "/sitemap.xml</atom:id>"
-		."<atom:category scheme=\"http://schemas.google.com/g/2005#kind\" term=\"http://schemas.google.com/webmasters/tools/2007#sitemap-regular\"/>"
-		."<wt:sitemap-type>WEB</wt:sitemap-type>"
-		."</atom:entry>";
+		if ( is_multisite() ) {
+			$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', home_url() ) );
+			$content  = "<atom:entry xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:wt=\"http://schemas.google.com/webmasters/tools/2007\">"
+			."<atom:id>" . $url_home . "/sitemap_" . $home_url . ".xml</atom:id>"
+			."<atom:category scheme=\"http://schemas.google.com/g/2005#kind\" term=\"http://schemas.google.com/webmasters/tools/2007#sitemap-regular\"/>"
+			."<wt:sitemap-type>WEB</wt:sitemap-type>"
+			."</atom:entry>";
+		} else {
+			$content  = "<atom:entry xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:wt=\"http://schemas.google.com/webmasters/tools/2007\">"
+			."<atom:id>" . $url_home . "/sitemap.xml</atom:id>"
+			."<atom:category scheme=\"http://schemas.google.com/g/2005#kind\" term=\"http://schemas.google.com/webmasters/tools/2007#sitemap-regular\"/>"
+			."<wt:sitemap-type>WEB</wt:sitemap-type>"
+			."</atom:entry>";
+		}		
 		$hasil1 = gglstmp_curl_funct( $au, $url_send_sitemap . $url . "/sitemaps/", "POST", $content );
 	}
 }
@@ -546,4 +622,6 @@ add_filter( 'plugin_action_links', 'gglstmp_action_links', 10, 2 );
 
 add_action( 'save_post', 'gglstmp_update_sitemap' );
 add_action( 'trashed_post ', 'gglstmp_update_sitemap' );
+if( get_option( 'gglstmp_robots' ) == 1 )
+	add_filter('robots_txt', 'gglstmp_robots_add_sitemap', 10, 2 );
 ?>
