@@ -4,7 +4,7 @@ Donate link: http://bestwebsoft.com/
 Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle sitemap, sitemp, google api sitemap, api sitemap, webmaster sitemap, webmaster tols, google stmp
 Requires at least: 2.9
 Tested up to: 3.5.1
-Stable tag: 2.5
+Stable tag: 2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,7 +19,8 @@ Google sitemap plugin allows you to create and add sitemap file to google webmas
 * Arabic (ar_AR) (thanks to Albayan Design, hani aladoli)
 * French (fr_FR) (thanks to <a href="mailto:paillat.jeff@gmail.com">Jeff</a>)
 * Russian (ru_RU)
-* Spanish (es_ES)(thanks to <a herf="mailto:mrjosefernando@gmail.com">Fernando De León</a>)
+* Serbian (sr_RS) (thanks to <a href="mailto:diana@wpdiscounts.com">Diana</a>, www.wpdiscounts.com)
+* Spanish (es_ES) (thanks to <a href="mailto:mrjosefernando@gmail.com">Fernando De León</a>)
 
 If you create your own language pack or update an existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank"> text in PO and MO files</a> for <a href="http://bestwebsoft.com/" target="_blank">BWS</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
 
@@ -73,6 +74,9 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 2. Google sitemap Settings page at the hosting which doesn't support CURL.
 
 == Changelog ==
+
+= V2.6 - 29.03.2013 =
+* NEW : Serbian language file was added to the plugin.
 
 = V2.5 - 21.03.2013 =
 * New: Added ability to create sitemap.xml for multi-sites.
@@ -129,6 +133,9 @@ In the WordPress admin panel go to "Plugins", find "Google sitemap" plugin and p
 * New: Added ability to add site in google webmaster tools, verificate it and add sitemap file.
 
 == Upgrade Notice ==
+
+= V2.6 =
+Serbian language file was added to the plugin.
 
 = V2.5 =
 Added ability to create sitemap.xml for multi-sites. We updated plugin for custom WP configuration.

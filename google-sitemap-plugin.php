@@ -4,7 +4,7 @@ Plugin Name: Google sitemap plugin
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in google webmaster tools account.
 Author: BestWebSoft
-Version: 2.5
+Version: 2.6
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
