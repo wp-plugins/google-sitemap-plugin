@@ -4,7 +4,7 @@ Plugin Name: Google sitemap plugin
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in google webmaster tools account.
 Author: BestWebSoft
-Version: 2.6
+Version: 2.7
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -97,7 +97,7 @@ if( ! function_exists( 'bws_add_menu_render' ) ) {
 				<?php foreach( $array_recomend as $recomend_plugin ) { ?>
 				<div style="float:left; width:200px;"><?php echo $recomend_plugin['title']; ?></div> <p><a href="<?php echo $recomend_plugin['link']; ?>" target="_blank"><?php echo __( "Read more", 'sitemap'); ?></a> <a href="<?php echo $recomend_plugin['href']; ?>" target="_blank"><?php echo __( "Download", 'sitemap'); ?></a> <a class="install-now" href="<?php echo get_bloginfo( "url" ) . $recomend_plugin['slug']; ?>" title="<?php esc_attr( sprintf( __( 'Install %s' ), $recomend_plugin['title'] ) ) ?>" target="_blank"><?php echo __( 'Install now from wordpress.org', 'sitemap' ) ?></a></p>
 				<?php } ?>
-				<span style="color: rgb(136, 136, 136); font-size: 10px;"><?php _e( 'If you have any questions, please contact us via plugin@bestwebsoft.com or fill in our contact form on our site', 'sitemap' ); ?> <a href="http://bestwebsoft.com/contact/">http://bestwebsoft.com/contact/</a></span>
+				<span style="color: rgb(136, 136, 136); font-size: 10px;"><?php _e( 'If you have any questions, please contact us via plugin@bestwebsoft.com or fill out the contact form on our website', 'sitemap' ); ?> <a href="http://bestwebsoft.com/contact/">http://bestwebsoft.com/contact/</a></span>
 			</div>
 			<?php } ?>
 		</div>
@@ -220,7 +220,7 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 		$gglstmp_robots = get_option( 'gglstmp_robots' );
 
 		if( isset( $_POST['gglstmp_new'] ) && check_admin_referer( plugin_basename(__FILE__), 'gglstmp_nonce_name' ) ) {
-			$message =  __( "Your sitemap file was created in the root directory of the site. ", 'sitemap' );
+			$message =  __( "Your Sitemap file is created in the site root directory.", 'sitemap' );
 			gglstmp_sitemapcreate();
 		}
 		if( isset( $_REQUEST['gglstmp_submit'] ) && check_admin_referer( plugin_basename(__FILE__), 'gglstmp_nonce_name' ) ) {
@@ -291,20 +291,20 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 			<form action="admin.php?page=google-sitemap-plugin.php" method='post' id="gglstmp_auth" name="gglstmp_auth">
 				<?php //=============================== Creating sitemap file ====================================
 				if( file_exists( $url_sitemap ) ) {
-					echo "<p>". __( "The sitemap file is already exists. If you want to change it for a new sitemap file check the necessary box below. In other case all actions will be performed over an existing file.", 'sitemap' ) . "</p>";
+					echo "<p>". __( "The Sitemap file already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file.", 'sitemap' ) . "</p>";
 				}
 				else {
 					gglstmp_sitemapcreate();
-					echo "<p>".__( "Your sitemap file was created in the root directory of the site. ", 'sitemap' ) . "</p>";	
+					echo "<p>".__( "Your Sitemap file is created in the site root directory.", 'sitemap' ) . "</p>";	
 				}
 				//========================================== Recreating sitemap file ====================================	
 				if ( is_multisite() ) {
-					echo '<p>'. __( "If you don't want to add this file automatically you may go through", 'sitemap' ) . " <a href=\"https://www.google.com/webmasters/tools/home?hl=en\">". __( "this", 'sitemap' ) . "</a> ". __( "link, sign in, select necessary site, select 'Sitemaps' and type in necessary field", 'sitemap' ) ." - '". $url_home."/sitemap_" . $home_url .".xml'.</p>";
+					echo '<p>'. __( "If you do not want a sitemap file to be added to Google Webmaster Tools automatically, you can do it using", 'sitemap' ) . " <a href=\"https://www.google.com/webmasters/tools/home?hl=en\">". __( "this", 'sitemap' ) . "</a> ". __( "link - sign in, choose the necessary site, go to 'Sitemaps' and fill out the mandatory field", 'sitemap' ) ." - '". $url_home."/sitemap_" . $home_url .".xml'.</p>";
 				} else {			
-					echo '<p>'. __( "If you don't want to add this file automatically you may go through", 'sitemap' ) . " <a href=\"https://www.google.com/webmasters/tools/home?hl=en\">". __( "this", 'sitemap' ) . "</a> ". __( "link, sign in, select necessary site, select 'Sitemaps' and type in necessary field", 'sitemap' ) ." - '". $url_home."/sitemap.xml'.</p>";
+					echo '<p>'. __( "If you do not want a sitemap file to be added to Google Webmaster Tools automatically, you can do it using", 'sitemap' ) . " <a href=\"https://www.google.com/webmasters/tools/home?hl=en\">". __( "this", 'sitemap' ) . "</a> ". __( "link - sign in, choose the necessary site, go to 'Sitemaps' and fill out the mandatory field", 'sitemap' ) ." - '". $url_home."/sitemap.xml'.</p>";
 				}
 				if ( ! function_exists( 'curl_init' ) ) {
-					echo '<p class="error">'. __( "This hosting doesn't support CURL, so you can't add sitemap file automatically", 'sitemap' ). "</p>";	
+					echo '<p class="error">'. __( "This hosting does not support сURL, so you cannot add a sitemap file automatically.", 'sitemap' ). "</p>";	
 					$curl_exist = 0;
 				}
 				else {
@@ -313,14 +313,14 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 				<table class="form-table">
 					<tr valign="top">
 						<td colspan="2">
-							<input type='checkbox' name='gglstmp_new' value="1" /> <label for="gglstmp_new"><?php _e( "I want to create new / update manualy sitemap file", 'sitemap' );	?></label>
+							<input type='checkbox' name='gglstmp_new' value="1" /> <label for="gglstmp_new"><?php _e( "I want to create a new sitemap file or update the existing one", 'sitemap' );	?></label>
 						</td>
 					</tr>
 					<?php if ( is_multisite() ) { ?>
 						<tr valign="top">
 							<td colspan="2">
 								<input type='checkbox' disabled="disabled" name='gglstmp_checkbox' value="1" <?php if( $gglstmp_robots == 1 ) echo 'checked="checked"'; ?>/> <label for="gglstmp_checkbox"><?php _e( "I want to add sitemap file path in robots.txt", 'sitemap' );?></label>
-								<p style="color:red"><?php _e( "Since you're using multisiting, the plugin does not allow to add a site map to robots.txt", 'sitemap' ); ?></div>
+								<p style="color:red"><?php _e( "Since you are using multisiting, the plugin does not allow to add a sitemap to robots.txt", 'sitemap' ); ?></div>
 							</td>
 						</tr>
 					<?php } else { ?>
@@ -331,7 +331,7 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 						</tr>
 					<?php } ?>
 					<tr valign="top">
-						<th scope="row" colspan="2"><?php _e( 'Please choose the necessary post types in order to add the links to them in the sitemap:', 'sitemap' ); ?> </th>
+						<th scope="row" colspan="2"><?php _e( 'Please choose the necessary post types the links to which are to be added to the sitemap:', 'sitemap' ); ?> </th>
 					</tr>
 					<tr valign="top">
 						<td colspan="2">
@@ -344,7 +344,7 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 					<?php if ( $curl_exist == 1 ) { ?>
 					<tr valign="top">
 						<td colspan="2">
-							<?php echo __( "Type here your login and password from google webmaster tools account to add or delete site and sitemap file automatically or to get information about this site in google webmaster tools.", 'sitemap' ); ?> 
+							<?php echo __( "Please enter your Google account login and password in order to add or delete a site and a sitemap file automatically or get information about this site in Google Webmaster Tools.", 'sitemap' ); ?> 
 						</td>
 					</tr>
 					<tr valign="top">
@@ -352,9 +352,9 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 						<td>
 							<input type='text' name='gglstmp_email' value="<?php if( isset( $_REQUEST['gglstmp_email'] ) ) echo  $_REQUEST['gglstmp_email']; ?>" /> <label for='gglstmp_email'><?php _e( "Login", 'sitemap' );	?></label><br />
 							<input type='password' name='gglstmp_passwd' value="<?php if( isset( $_REQUEST['gglstmp_email'] ) ) echo  $_REQUEST['gglstmp_email']; ?>" /> <label for='gglstmp_passwd'><?php _e( "Password", 'sitemap' );	?></label><br />
-							<input type='radio' name='gglstmp_menu' value="ad" /> <label for='gglstmp_menu'><?php _e( "I want to add this site to the google webmaster tools", 'sitemap' );	?></label><br />
-							<input type='radio' name='gglstmp_menu' value="del" /> <label for='gglstmp_menu'><?php _e( "I want to delete this site from google webmaster tools", 'sitemap' ); ?></label><br />
-							<input type='radio' name='gglstmp_menu' value="inf" /> <label for='gglstmp_menu'><?php _e( "I want to get info about this site in google webmaster tools", 'sitemap' );	?></label>
+							<input type='radio' name='gglstmp_menu' value="ad" /> <label for='gglstmp_menu'><?php _e( "I want to add this site to Google Webmaster Tools", 'sitemap' );	?></label><br />
+							<input type='radio' name='gglstmp_menu' value="del" /> <label for='gglstmp_menu'><?php _e( "I want to delete this site from Google Webmaster Tools", 'sitemap' ); ?></label><br />
+							<input type='radio' name='gglstmp_menu' value="inf" /> <label for='gglstmp_menu'><?php _e( "I want to get info about this site in Google Webmaster Tools", 'sitemap' );	?></label>
 						</td>
 					</tr>
 					<?php } ?>
@@ -369,10 +369,10 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 		<?php		
 		//================================ Different checks for the valid entering data ===================
 		if( isset( $_POST['gglstmp_menu'] ) && ( ! isset( $_POST['gglstmp_email'] ) || ! isset( $_POST['gglstmp_passwd'] ) || empty( $_POST['gglstmp_email'] ) || empty( $_POST['gglstmp_passwd'] ) ) ) { ?> 
-			<script type = "text/javascript"> alert( "<?php _e( 'You must enter login and password', 'sitemap' );	?>" ) </script>
+			<script type = "text/javascript"> alert( "<?php _e( 'Please enter your login and password', 'sitemap' );	?>" ) </script>
 		<?php }
 		else if( isset( $_POST['gglstmp_email'] ) && isset( $_POST['gglstmp_passwd'] ) && isset( $_POST['gglstmp_menu'] ) && $_POST['gglstmp_menu'] != "ad" && $_POST['gglstmp_menu'] != "del" && $_POST['gglstmp_menu'] != "inf" ) { ?>
-			<script type = "text/javascript"> alert( "<?php _e( 'You must choose at least one action', 'sitemap' );	?>" ) </script>
+			<script type = "text/javascript"> alert( "<?php _e( 'You should choose at least one action', 'sitemap' );	?>" ) </script>
 		<?php }
 		else if( isset( $_POST['gglstmp_email'] ) && isset( $_POST['gglstmp_passwd'] ) && isset( $_POST['gglstmp_menu'] ) && ! empty( $_POST['gglstmp_email'] ) && ! empty( $_POST['gglstmp_passwd'] )) {	
 			// =================== Connecting to the google account =================
@@ -402,7 +402,7 @@ if ( !function_exists ( 'gglstmp_settings_page' ) ) {
 			$au = isset( $httpParsedResponseAr["Auth"] ) ? $httpParsedResponseAr["Auth"] : false;
 			if ( ! $au && ( $_POST['gglstmp_email'] ) && ( $_POST['gglstmp_passwd'] ) ) {
 			?>
-				<script type = "text/javascript"> alert( "<?php _e( 'Login and password don\'t match, try again, please', 'sitemap' );	?>" ) </script>
+				<script type = "text/javascript"> alert( "<?php _e( 'Login and password do not match. Please try again', 'sitemap' );	?>" ) </script>
 			<?php
 			}
 			else {
@@ -485,9 +485,9 @@ if( ! function_exists( 'gglstmp_info_site' ) ) {
 
 		$hasilx = gglstmp_curl_funct( $au, $url_send . $url, "GET", false );
 		//========================= Getting info about site in google webmaster tools ====================
-		echo "<h2><br />". __( "Info about this site in google webmaster tools", 'sitemap') ."</h2><br />";
+		echo "<h2><br />". __( "I want to get info about this site in Google Webmaster Tools", 'sitemap') ."</h2><br />";
 		if ( $hasilx == "Site not found" ) {
-			echo __( "This site is not added to the google webmaster tools account", 'sitemap');
+			echo __( "This site is not added to the Google Webmaster Tools account", 'sitemap');
 		}
 		else {
 			$hasils = gglstmp_curl_funct( $au, $url_send . $url, "GET", false );
@@ -508,13 +508,13 @@ if( ! function_exists( 'gglstmp_info_site' ) ) {
 			if( "WT:SITEMAP-STATUS" == $val["tag"] )
 				$sit = $val["value"];
 			}
-			echo __( "Site url: ", 'sitemap') . $url_home . "<br />";
-			echo __( "Site verification: ", 'sitemap'); 
+			echo __( "Site URL:", 'sitemap') . ' ' . $url_home . "<br />";
+			echo __( "Site verification:", 'sitemap') . ' '; 
 			if( "true" == $ver ) 
-				echo __( "verificated", 'sitemap') . "<br />"; 
+				echo __( "verified", 'sitemap') . "<br />"; 
 			else 
-				echo __( "non verificated", 'sitemap') . "<br />";
-			echo __( "Sitemap file: ", 'sitemap');
+				echo __( "not verified", 'sitemap') . "<br />";
+			echo __( "Sitemap file:", 'sitemap') . ' ';
 			if( $sit ) 
 				echo __( "added", 'sitemap') . "<br />"; 
 			else 
