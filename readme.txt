@@ -4,7 +4,7 @@ Donate link: http://bestwebsoft.com/
 Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle sitemap, sitemp, google api sitemap, api sitemap, webmaster sitemap, webmaster tols, google stmp
 Requires at least: 2.9
 Tested up to: 3.5.1
-Stable tag: 2.7
+Stable tag: 2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ This plugin allows you to add a Sitemap file to Google Webmaster Tools.
 With the Google Sitemap Plugin you can create and add a Sitemap file to Google Webmaster Tools, and get the info about your site in Google Webmaster Tools.
 
 <a href="http://wordpress.org/extend/plugins/google-sitemap-plugin/faq/" target="_blank">FAQ</a>
-<a href="http://bestwebsoft.com/plugin/google-sitemap-plugin/" target="_blank">Support</a>
+<a href="http://support.bestwebsoft.com" target="_blank">Support</a>
 
 = Translation =
 
@@ -25,16 +25,15 @@ With the Google Sitemap Plugin you can create and add a Sitemap file to Google W
 * Serbian (sr_RS) (thanks to <a href="mailto:diana@wpdiscounts.com">Diana</a>, www.wpdiscounts.com)
 * Spanish (es_ES) (thanks to <a href="mailto:mrjosefernando@gmail.com">Fernando De León</a>)
 
-If you create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text in PO and MO files</a> for <a href="http://bestwebsoft.com/" target="_blank">BWS</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
+If you create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text in PO and MO files</a> for <a href="http://support.bestwebsoft.com" target="_blank">BWS</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
 
 = Technical support =
 
-Dear users, our plugins are available for free download. If you have any questions or recommendations regarding the functionality of our plugins (existing options, new options, current issues), please feel free to contact us. Please note that we accept requests in English only. All messages in another languages won't be accepted.
+Dear users, our plugins are available for free download. If you have any questions or recommendations regarding the functionality of our plugins (existing options, new options, current issues), please feel free to contact us. Please read the documentation and information on our Support Forum carefully before contacting us. Please note that we accept requests in English only. All messages in another languages won't be accepted.
 
 If you notice any bugs in the plugins, you can notify us about it and we'll investigate and fix the issue then. Your request should contain URL of the website, issues description and WordPress admin panel credentials.
 Moreover we can customize the plugin according to your requirements. It's a paid service (as a rule it costs $40, but the price can vary depending on the amount of the necessary changes and their complexity). Please note that we could also include this or that feature (developed for you) in the next release and share with the other users then. 
 We can fix some things for free for the users who provide translation of our plugin into their native language (this should be a new translation of a certain plugin, you can check available translations on the official plugin page).
-
 
 == Installation ==
 
@@ -80,6 +79,9 @@ In the WordPress admin panel please go to "Plugins", find the Google Sitemap Plu
 2. Google sitemap Settings page on the hosting which doesn't support cURL.
 
 == Changelog ==
+
+= V2.8 - 03.06.2013 =
+* Update : BWS plugins section is updated.
 
 = V2.7 - 18.04.2013 =
 * Update : The English language is updated in the plugin.
@@ -142,6 +144,9 @@ In the WordPress admin panel please go to "Plugins", find the Google Sitemap Plu
 * New: Added ability to add site in google webmaster tools, verificate it and add sitemap file.
 
 == Upgrade Notice ==
+
+= V2.8 =
+BWS plugins section is updated.
 
 = V2.7 =
 The English language is updated in the plugin.
