@@ -4,7 +4,7 @@ Plugin Name: Google Sitemap
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in Google Webmaster Tools account.
 Author: BestWebSoft
-Version: 2.8.4
+Version: 2.8.5
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -231,12 +231,12 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 			if ( ! $au && ( $_POST['gglstmp_email'] ) && ( $_POST['gglstmp_passwd'] ) )
 				$error = __( 'Login and password do not match. Please try again', 'sitemap' );
 		}
-
 		/* GO PRO */
 		if ( isset( $_GET['action'] ) && 'go_pro' == $_GET['action'] ) {
 			global $wpmu;
 
 			$bws_license_key = ( isset( $_POST['bws_license_key'] ) ) ? trim( $_POST['bws_license_key'] ) : "";
+			$bstwbsftwppdtplgns_options_defaults = array();
 			if ( 1 == $wpmu ) {
 				if ( !get_site_option( 'bstwbsftwppdtplgns_options' ) )
 					add_site_option( 'bstwbsftwppdtplgns_options', $bstwbsftwppdtplgns_options_defaults, '', 'yes' );
@@ -259,6 +259,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 							$bstwbsftwppdtplgns_options['go_pro'][ $bws_license_plugin ]['count'] = 1;
 							$bstwbsftwppdtplgns_options['go_pro'][ $bws_license_plugin ]['time'] = time();
 						}	
+
 						/* download Pro */
 						if ( !function_exists( 'get_plugins' ) )
 							require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
@@ -296,8 +297,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 											}
 										}
 										if ( '' == $error ) {
-											global $wpmu;
-											$bstwbsftwppdtplgns_options_defaults = array();										
+											global $wpmu;																					
 											$bstwbsftwppdtplgns_options[ $bws_license_plugin ] = $bws_license_key;
 
 											$url = 'http://bestwebsoft.com/wp-content/plugins/paid-products/plugins/downloads/?bws_first_download=' . $bws_license_plugin . '&bws_license_key=' . $bws_license_key . '&download_from=5';
@@ -526,7 +526,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 						</p>
 						<?php if ( isset( $bstwbsftwppdtplgns_options['go_pro']['google-sitemap-pro/google-sitemap-pro.php']['count'] ) &&
 							'5' < $bstwbsftwppdtplgns_options['go_pro']['google-sitemap-pro/google-sitemap-pro.php']['count'] &&
-							$bstwbsftwppdtplgns_options['go_pro']['google-sitemap-pro/google-sitemap-pro.php']['time'] < ( time() + (24 * 60 * 60) ) ) { ?>
+							$bstwbsftwppdtplgns_options['go_pro']['google-sitemap-pro/google-sitemap-pro.php']['time'] < ( time() + ( 24 * 60 * 60 ) ) ) { ?>
 							<p>
 								<input disabled="disabled" type="text" name="bws_license_key" value="<?php echo $bws_license_key; ?>" />
 								<input disabled="disabled" type="submit" class="button-primary" value="<?php _e( 'Go!', 'sitemap' ); ?>" />

@@ -22,6 +22,11 @@
     color: #FFFFFF;
     border-color: #11688F;
 }
+.bws_go_pro_tab.nav-tab-active {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-color: #CCCCCC #CCCCCC #F1F1F1;
+    color: #000000;
+}
 /*
 * styles for rate-support div on the settings page
 */

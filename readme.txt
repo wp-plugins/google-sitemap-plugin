@@ -4,7 +4,7 @@ Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=10
 Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle sitemap, sitemp, google api sitemap, api sitemap, webmaster sitemap, webmaster tols, google stmp
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 2.8.4
+Stable tag: 2.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,8 +84,13 @@ In the WordPress admin panel please go to "Plugins", find the Google Sitemap and
 
 1. Google Sitemap Settings page.
 2. Google Sitemap Settings page on the hosting which doesn't support cURL.
+3. Google Sitemap Extra Settings page.
 
 == Changelog ==
+
+= V2.8.5 - 13.01.2014 =
+* Bugfix : Bugs related on using string offset as an array were fixed.
+* Update : Screenshots was updated.
 
 = V2.8.4 - 10.01.2014 =
 * NEW : Installed wordpress version checking was added.
@@ -170,6 +175,9 @@ In the WordPress admin panel please go to "Plugins", find the Google Sitemap and
 * New: Ability to add site in google webmaster tools, verify it and add sitemap file was added.
 
 == Upgrade Notice ==
+
+= V2.8.5 =
+Bugs related on using string offset as an array were fixed. Screenshots was updated.
 
 = V2.8.4 =
 Checking installed wordpress version was added. BWS plugins section was updated. We updated all functionality for wordpress 3.8. Activation of radio button or checkbox by clicking on its label was added.
