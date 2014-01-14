@@ -14,6 +14,8 @@ This plugin allows you to add a Sitemap file to Google Webmaster Tools.
 
 With the Google Sitemap Plugin you can create and add a Sitemap file to Google Webmaster Tools, and get the info about your site in Google Webmaster Tools.
 
+http://www.youtube.com/watch?v=C4M_ge0dyuU
+
 <a href="http://wordpress.org/plugins/google-sitemap-plugin/faq/" target="_blank">FAQ</a>
 
 <a href="http://support.bestwebsoft.com" target="_blank">Support</a>
@@ -83,7 +85,7 @@ In the WordPress admin panel please go to "Plugins", find the Google Sitemap and
 == Screenshots ==
 
 1. Google Sitemap Settings page.
-2. Google Sitemap Settings page - add a site to Google Webmaster Tools.
+2. Google Sitemap Settings page on the hosting which doesn't support cURL.
 3. Google Sitemap Extra Settings page.
 
 == Changelog ==
