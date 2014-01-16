@@ -411,7 +411,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 								<?php } ?>
 							</td>
 						</tr>
-						<?php if ( function_exists( 'curl_init' ) ) { ?>
+						<?php if ( ! function_exists( 'curl_init' ) ) { ?>
 							<tr valign="top">
 								<td colspan="2" class="gglstmppr_error">
 									<?php echo __( "This hosting does not support сURL, so you cannot add a sitemap file automatically.", 'sitemap' ); ?>
