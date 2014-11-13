@@ -100,7 +100,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (http:/
 
 == Changelog ==
 
-= V2.9.4 - 11.11.2014 =
+= V2.9.4 - 11.11.2014 = 
 * Update : BWS plugins section was updated.
 * Bugfix : Plugin optimization is done.
 
