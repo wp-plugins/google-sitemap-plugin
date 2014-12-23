@@ -101,7 +101,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (http:/
 == Changelog ==
 
 = V2.9.5 - 23.12.2014 = 
-* Bugfix : Error loading stylesheet is fixed.
+* Bugfix : Error loading stylesheet is fixed. 
 
 = V2.9.4 - 11.11.2014 = 
 * Update : BWS plugins section was updated.
